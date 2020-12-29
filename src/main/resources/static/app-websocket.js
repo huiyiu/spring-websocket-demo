@@ -4,11 +4,11 @@ var stompClient = null;
 //var SOCKET_ENDPOINT = "/mydlq";
 var SOCKET_ENDPOINT = "/stompWebsocket";
 // 设置订阅消息的请求前缀
-var SUBSCRIBE_PREFIX = "/topic"
+var SUBSCRIBE_PREFIX = ""
 // 设置订阅消息的请求地址
 var SUBSCRIBE = "";
 // 设置服务器端点，访问服务器中哪个接口
-var SEND_ENDPOINT = "/app/test";
+var SEND_ENDPOINT = "";
 
 /* 进行连接 */
 function connect() {
@@ -19,7 +19,7 @@ function connect() {
     // STOMP 客户端连接
     stompClient.connect({}, function (frame) {
         alert("连接成功");
-        alert(frame.headers.message);
+        //alert(frame.headers.message);
     });
 }
 
@@ -45,10 +45,11 @@ function disconnect() {
 
 /* 发送消息并指定目标地址（这里设置的目标地址为自身订阅消息的地址，当然也可以设置为其它地址） */
 function sendMessageNoParameter() {
+    SEND_ENDPOINT =  $("#sendAddr").val();
     // 设置发送的内容
     var sendContent = $("#content").val();
     // 设置待发送的消息内容
     var message = '{"destination": "' + SUBSCRIBE + '", "content": "' + sendContent + '"}';
     // 发送消息
-    stompClient.send(SEND_ENDPOINT, {}, message);
+    stompClient.send("/app"+SEND_ENDPOINT, {}, message);
 }
