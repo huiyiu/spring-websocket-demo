@@ -49,7 +49,7 @@ public class MessageController {
     @MessageMapping("/test3")
     @SendToUser(value="/queue/test3",broadcast = false)
     public String sendTopicMessageWithSendToUser(String msg, Principal principal) {
-        return msg + principal.getName();
+        return msg;
     }
 
 }
